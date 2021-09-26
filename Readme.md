@@ -125,3 +125,59 @@ To tidy up, bringing down all the containers and deleting them.
 ```
 docker-compose down
 ```
+### My notice 
+
+
+1) Issue with Windows Hyper-V fix it by using
+
+bcdedit /set hypervisorlaunchtype auto
+
+2) ERROR: Service 'example-rust' failed to build : Build failed
+
+ Compiling idna v0.2.3
+#8 56.85 error[E0723]: loops and conditional expressions are not stable in const fn
+#8 56.85   --> /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/nix-0.19.1/src/fcntl.rs:28:1
+#8 56.85    |
+#8 56.85 28 | / libc_bitflags! {
+#8 56.85 29 | |     pub struct AtFlags: c_int {
+#8 56.85 30 | |         AT_REMOVEDIR;
+#8 56.85 31 | |         AT_SYMLINK_FOLLOW;
+#8 56.85 ...  |
+#8 56.85 37 | |     }
+#8 56.85 38 | | }
+#8 56.85    | |_^ in this macro invocation
+#8 56.85    |
+#8 56.85    = note: for more information, see issue https://github.com/rust-lang/rust/issues/57563
+#8 56.85    = help: add `#![feature(const_fn)]` to the crate attributes to enable
+#8 56.85    = note: this error originates in a macro outside of the current crate (in Nightly builds, run with -Z external-macro-backtrace for more info)
+#8 56.85
+#8 56.87 error[E0723]: loops and conditional expressions are not stable in const fn
+#8 56.87    --> /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/nix-0.19.1/src/fcntl.rs:40:1
+#8 56.87     |
+#8 56.87 40  | / libc_bitflags!(
+#8 56.87 41  | |     /// Configuration options for opened files.
+#8 56.87 42  | |     pub struct OFlag: c_int {
+#8 56.87 43  | |         /// Mask for the access mode of the file.
+#8 56.87 ...   |
+#8 56.87 161 | |     }
+#8 56.87 162 | | );
+#8 56.87     | |__^ in this macro invocation
+#8 56.87     |
+#8 56.87     = note: for more information, see issue https://github.com/rust-lang/rust/issues/57563
+#8 56.87     = help: add `#![feature(const_fn)]` to the crate attributes to enable
+#8 56.87     = note: this error originates in a macro outside of the current crate (in Nightly builds, run with -Z external-macro-backtrace for more info)
+
+3) /usr/bin/env: 'python\r': No such file or directory
+
+4) Going to WSL Working with docker and docker compose
+
+Switch WSL1 to WSL2 
+wsl --set-default-version 2   
+switch code
+wsl --list --verbose
+list of wsl
+wsl --set-version Ubuntu-20.04 2
+convert old wsl1 
+
+5) Install docker and docker compose to WSL2
+6)
