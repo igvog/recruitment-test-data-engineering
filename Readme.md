@@ -125,6 +125,11 @@ To tidy up, bringing down all the containers and deleting them.
 ```
 docker-compose down
 ```
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 815e966fe4d357c59c96226d2831cf2147f5ba77
 ### My notice 
 
 
@@ -165,6 +170,7 @@ bcdedit /set hypervisorlaunchtype auto
 #8 56.87     |
 #8 56.87     = note: for more information, see issue https://github.com/rust-lang/rust/issues/57563
 #8 56.87     = help: add `#![feature(const_fn)]` to the crate attributes to enable
+<<<<<<< HEAD
 #8 56.87     = note: this error originates in a macro outside of the current crate (in Nightly builds, run with -Z external-macro-backtrace for more info)
 
 3) /usr/bin/env: 'python\r': No such file or directory
@@ -181,3 +187,6 @@ convert old wsl1
 
 5) Install docker and docker compose to WSL2
 6)
+=======
+#8 56.87     = note: this error originates in a macro outside of the current crate (in Nightly builds, run with -Z external-macro-backtrace for more info)
+>>>>>>> 815e966fe4d357c59c96226d2831cf2147f5ba77
