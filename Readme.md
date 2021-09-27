@@ -175,8 +175,10 @@ wsl --set-default-version 2
 switch code
 wsl --list --verbose
 list of wsl
+
 wsl --set-version Ubuntu-20.04 2
 convert old wsl1 
 
 5) Install docker and docker compose to WSL2
-6)
+6) Then init test working fine: 
+sudo service docker start
