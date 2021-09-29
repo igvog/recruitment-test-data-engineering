@@ -7,5 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY task.py ./
 RUN chmod +rwx ./task.py
+#RUN python3 ./task.py
 ENTRYPOINT ./task.py
 

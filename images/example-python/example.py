@@ -21,7 +21,7 @@ with open('/data/example.csv') as csv_file:
     connection.execute(Example.insert().values(name = row[0]))
 
 # output the table to a JSON file
-with open('/data/example_python.json', 'w') as json_file:
+with open('/data/test.json', 'w') as json_file:
   rows = connection.execute(sqlalchemy.sql.select([Example])).fetchall()
   rows = [{'id': row[0], 'name': row[1]} for row in rows]
   json.dump(rows, json_file, separators=(',', ':'))
