@@ -57,8 +57,7 @@ cursor.execute(
 )
     """
 )
-
-# read people CSV file and insert into tables
+print("tables created")
 try:
     with open('/data/people.csv') as csv_file:
         reader = csv.reader(csv_file, delimiter=',')
@@ -74,35 +73,29 @@ try:
                 , (id_count, row[0], row[1], row[2],row[3])
                 )
             id_count = cursor.lastrowid + 1
-        print("Successfully imported peoples csv")
 except IOError:
     print("Can't read peoples csv file")
 
-# read places CSV file and insert into tables
 try:
     with open('/data/places.csv') as csv_file:
         reader = csv.reader(csv_file, delimiter=',')
         next(reader)
-        
-        #holds regions and their id
-        country_dictionary = {}
-        county_dictionary = {}
+        country_dict = {}
+        county_dict = {}
 
         for row in reader:
 
-            #checks and stores country and their id
-            if row[2] in country_dictionary:
-                country_id = country_dictionary[row[2]]
+            if row[2] in country_dict:
+                country_id = country_dict[row[2]]
             else:
-                country_dictionary[row[2]] = cursor.lastrowid
-                country_id = country_dictionary[row[2]]
+                country_dict[row[2]] = cursor.lastrowid
+                country_id = country_dict[row[2]]
 
-            #checks and stores county and their id
-            if row[1] in county_dictionary:
-                county_id = county_dictionary[row[1]]
+            if row[1] in county_dict:
+                county_id = county_dict[row[1]]
             else:
-                county_dictionary[row[1]] = cursor.lastrowid
-                county_id = county_dictionary[row[1]]
+                county_dict[row[1]] = cursor.lastrowid
+                county_id = county_dict[row[1]]
 
             data_country = (country_id, row[2])
             data_county = (county_id, row[1], country_id)
@@ -122,12 +115,8 @@ try:
                 INSERT ignore into city (city_id, city_name, county_id)  values(%s, %s, %s)
                 """
                 , data_city)
-        print("Successfully imported places csv")
 except IOError:
     print("Could not read places csv file")
-
-
-##Update people foreign key
 
 cursor.execute(
     """
@@ -148,23 +137,20 @@ cursor.execute(
     group by a.country_name 
     """
 )
-print("Getting intended output")
 
-##Getting query and outputting in a json
-result = cursor.fetchall()
+data = cursor.fetchall()
+
 try:
     with open('/data/task.json', 'w') as json_file:
         rows = {}
-        for x in result:
+        for x in data:
             row = {x[0] : x[1]}
             rows.update(row)
-        print("Output:", rows)
         json.dump(rows, json_file, separators=(',', ':'))
-    print("Successfully wrote output in a json file in /data/task")
 except IOError:
     print("Unable to write output in a file")
 
-
+print("Data loaded")
 ## Close connection
 mydb.commit()
 cursor.close()
