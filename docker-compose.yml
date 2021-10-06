@@ -3,13 +3,16 @@ version: "3.7"
 services:
   database:
     image: mysql:8.0
-    command:
+    command: 
       - "--default-authentication-plugin=mysql_native_password"
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
       - MYSQL_DATABASE=codetest
       - MYSQL_USER=codetest
       - MYSQL_PASSWORD=swordfish
+      - LANG=C.UTF_8
     ports:
       - "3306:3306"
     restart: always

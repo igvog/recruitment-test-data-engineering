@@ -1,15 +1,20 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import csv
 import json
 import mysql.connector
 from mysql.connector import errorcode
 
-
-mydb = mysql.connector.connect(host="database", user="codetest", password="swordfish")
+mydb = mysql.connector.connect(host="database", user="codetest", password="swordfish", charset='utf8')
 cursor = mydb.cursor()
 cursor.execute("use codetest")
 print("db connected")
+
+cursor.execute('SET NAMES utf8;') 
+cursor.execute('SET CHARACTER SET utf8;') 
+cursor.execute('SET character_set_connection=utf8;')
+
 
 cursor.execute("drop table if exists peoples, country, county, city;")
 cursor.execute(
@@ -18,9 +23,9 @@ cursor.execute(
 	country_id integer auto_increment not null,
 	country_name varchar(255),
 	primary key(country_id)
-)
+    )
     """
-)
+            )
 cursor.execute(
     """
     create table county (
@@ -29,9 +34,9 @@ cursor.execute(
 	country_id int ,
     primary key(county_id),
     constraint forkey_country foreign key(country_id) references country(country_id)
-)
+    )
     """
-)
+            )
 cursor.execute(
     """
     create table city (
@@ -40,9 +45,9 @@ cursor.execute(
     county_id integer,
 	primary key(city_id),
     constraint forkey_county foreign key(county_id) references county(county_id)
-)
+    )
     """
-)
+            )
 cursor.execute(
     """
     create table peoples (
@@ -54,9 +59,9 @@ cursor.execute(
     city_id int,
     primary key(peoples_id),
     constraint forkey_city foreign key(city_id) references city(city_id)
-)
+    )
     """
-)
+            )
 print("tables created")
 try:
     with open('/data/people.csv') as csv_file:
@@ -70,7 +75,7 @@ try:
                 (peoples_id, given_name, family_name, date_of_birth, place_of_birth) 
                 values (%s, %s, %s, %s, %s)
                 """)
-                , (id_count, row[0], row[1], row[2],row[3])
+                , (id_count, row[0], row[1], row[2], row[3])
                 )
             id_count = cursor.lastrowid + 1
 except IOError:
@@ -125,7 +130,7 @@ cursor.execute(
     set a.city_id = b.city_id
     where a.city_id is NULL
     """
-)
+    )
 
 cursor.execute(
     """
@@ -136,7 +141,7 @@ cursor.execute(
     inner join peoples as d on c.city_id = d.city_id 
     group by a.country_name 
     """
-)
+    )
 
 data = cursor.fetchall()
 

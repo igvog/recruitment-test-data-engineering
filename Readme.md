@@ -180,5 +180,12 @@ wsl --set-version Ubuntu-20.04 2
 convert old wsl1 
 
 5) Install docker and docker compose to WSL2
+
 6) Then init test working fine: 
 sudo service docker start
+7) UTF Corner username
+
+# FIX UNICOD in READ CSV AND DATABASE 
+# bulk insert question
+# Process mogrify in mysql
+# add module to config and sql select 
